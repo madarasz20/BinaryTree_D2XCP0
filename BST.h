@@ -23,10 +23,7 @@ public:
 
 	bool empty() const;
 	void clear();
-
-	//bool empty() const;
-	//void clear();
-	//bool insert(const Key k, const Value val);
+	bool insert(const Key& k, const Value& val);
 	//bool remove(const Key k);
 	//bool contains(const Key k);
 
