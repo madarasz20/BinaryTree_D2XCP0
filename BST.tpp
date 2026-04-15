@@ -148,3 +148,44 @@ bool BST<Key, Value>::remove(const Key& key) {
     root = removeNode(root, key, removed);
     return removed;
 }
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Node*& BST<Key, Value>::findSlot(const Key& key) {
+    Node** current = &root;
+
+    while (*current != nullptr) {
+        if (key < (*current)->key) {
+            current = &((*current)->leftchild);
+        }
+        else if ((*current)->key < key) {
+            current = &((*current)->rightchild);
+        }
+        else {
+            break;
+        }
+    }
+
+    return *current;
+}
+
+template<typename Key, typename Value>
+Value& BST<Key, Value>::operator[](const Key& key) {
+    Node*& slot = findSlot(key);
+
+    if (slot == nullptr) {
+        slot = new Node(key, Value());
+    }
+
+    return slot->value;
+}
+
+template<typename Key, typename Value>
+const Value& BST<Key, Value>::operator[](const Key& key) const {
+    Node* node = findNode(root, key);
+
+    if (node == nullptr) {
+        throw KeyNotFoundException();
+    }
+
+    return node->value;
+}

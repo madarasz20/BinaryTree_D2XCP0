@@ -18,8 +18,15 @@ private:
 
 	static void clear(Node* node);
 	Node* findNode(Node* node, const Key& key) const;
+	//removehelper
+	Node* removeNode(Node* node, const Key& key, bool& removed);
+	Node* findMin(Node* node);
+
+	Node*& findSlot(const Key& key);
 
 public:
+	class KeyNotFoundException {};
+
 	BST();
 	~BST();
 
@@ -29,10 +36,8 @@ public:
 	bool contains(const Key& k) const;
 	bool remove(const Key& k);
 
-	//removehelper
-	Node* removeNode(Node* node, const Key& key, bool& removed);
-	Node* findMin(Node* node);
-	
+	Value& operator[](const Key& key);
+	const Value& operator[](const Key& key) const;
 
 	//iterárot osztály inorder bejáráshoz
 
