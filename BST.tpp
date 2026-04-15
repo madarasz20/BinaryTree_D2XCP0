@@ -66,3 +66,25 @@ bool BST<Key, Value>::insert(const Key& key, const Value& value) {
         }
     }
 }
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Node* BST<Key, Value>::findNode(Node* node, const Key& key) const {
+    while (node != nullptr) {
+        if (key < node->key) {
+            node = node->leftchild;
+        }
+        else if (node->key < key) {
+            node = node->rightchild;
+        }
+        else {
+            return node;
+        }
+    }
+
+    return nullptr;
+}
+
+template<typename Key, typename Value>
+bool BST<Key, Value>::contains(const Key& key) const {
+    return findNode(root, key) != nullptr;
+}

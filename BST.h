@@ -17,6 +17,8 @@ private:
 	Node* root;
 
 	static void clear(Node* node);
+	Node* findNode(Node* node, const Key& key) const;
+
 public:
 	BST();
 	~BST();
@@ -24,8 +26,9 @@ public:
 	bool empty() const;
 	void clear();
 	bool insert(const Key& k, const Value& val);
+	bool contains(const Key& k) const;
 	//bool remove(const Key k);
-	//bool contains(const Key k);
+	
 
 	//iterárot osztály inorder bejáráshoz
 
