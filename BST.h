@@ -27,7 +27,11 @@ public:
 	void clear();
 	bool insert(const Key& k, const Value& val);
 	bool contains(const Key& k) const;
-	//bool remove(const Key k);
+	bool remove(const Key& k);
+
+	//removehelper
+	Node* removeNode(Node* node, const Key& key, bool& removed);
+	Node* findMin(Node* node);
 	
 
 	//iterárot osztály inorder bejáráshoz

@@ -88,3 +88,63 @@ template<typename Key, typename Value>
 bool BST<Key, Value>::contains(const Key& key) const {
     return findNode(root, key) != nullptr;
 }
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Node* BST<Key, Value>::findMin(Node* node) {
+    while (node->leftchild != nullptr) {
+        node = node->leftchild;
+    }
+    return node;
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Node*
+BST<Key, Value>::removeNode(Node* node, const Key& key, bool& removed) {
+
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    if (key < node->key) {
+        node->leftchild = removeNode(node->leftchild, key, removed);
+    }
+    else if (node->key < key) {
+        node->rightchild = removeNode(node->rightchild, key, removed);
+    }
+    else {
+        removed = true;
+
+        if (node->leftchild == nullptr && node->rightchild == nullptr) {
+            delete node;
+            return nullptr;
+        }
+
+        if (node->leftchild == nullptr) {
+            Node* temp = node->rightchild;
+            delete node;
+            return temp;
+        }
+
+        if (node->rightchild == nullptr) {
+            Node* temp = node->leftchild;
+            delete node;
+            return temp;
+        }
+
+        Node* minNode = findMin(node->rightchild);
+
+        node->key = minNode->key;
+        node->value = minNode->value;
+
+        node->rightchild = removeNode(node->rightchild, minNode->key, removed);
+    }
+
+    return node;
+}
+
+template<typename Key, typename Value>
+bool BST<Key, Value>::remove(const Key& key) {
+    bool removed = false;
+    root = removeNode(root, key, removed);
+    return removed;
+}
