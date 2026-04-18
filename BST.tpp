@@ -189,3 +189,202 @@ const Value& BST<Key, Value>::operator[](const Key& key) const {
 
     return node->value;
 }
+
+template<typename Key, typename Value>
+BST<Key, Value>::NodeStack::StackNode::StackNode(Node* d, StackNode* n)
+    : data(d), next(n) {
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>::NodeStack::NodeStack()
+    : topNode(nullptr) {
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>::NodeStack::~NodeStack() {
+    clear();
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>::NodeStack::NodeStack(const NodeStack& other)
+    : topNode(nullptr) {
+    if (other.topNode == nullptr) {
+        return;
+    }
+
+    StackNode* otherCurrent = other.topNode;
+    StackNode* newTop = new StackNode(otherCurrent->data, nullptr);
+    StackNode* thisCurrent = newTop;
+    otherCurrent = otherCurrent->next;
+
+    while (otherCurrent != nullptr) {
+        thisCurrent->next = new StackNode(otherCurrent->data, nullptr);
+        thisCurrent = thisCurrent->next;
+        otherCurrent = otherCurrent->next;
+    }
+
+    topNode = newTop;
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::NodeStack&
+BST<Key, Value>::NodeStack::operator=(const NodeStack& other) {
+    if (this != &other) {
+        clear();
+
+        if (other.topNode == nullptr) {
+            topNode = nullptr;
+            return *this;
+        }
+
+        StackNode* otherCurrent = other.topNode;
+        StackNode* newTop = new StackNode(otherCurrent->data, nullptr);
+        StackNode* thisCurrent = newTop;
+        otherCurrent = otherCurrent->next;
+
+        while (otherCurrent != nullptr) {
+            thisCurrent->next = new StackNode(otherCurrent->data, nullptr);
+            thisCurrent = thisCurrent->next;
+            otherCurrent = otherCurrent->next;
+        }
+
+        topNode = newTop;
+    }
+
+    return *this;
+}
+
+template<typename Key, typename Value>
+bool BST<Key, Value>::NodeStack::empty() const {
+    return topNode == nullptr;
+}
+
+template<typename Key, typename Value>
+void BST<Key, Value>::NodeStack::push(Node* node) {
+    topNode = new StackNode(node, topNode);
+}
+
+template<typename Key, typename Value>
+void BST<Key, Value>::NodeStack::pop() {
+    if (topNode != nullptr) {
+        StackNode* temp = topNode;
+        topNode = topNode->next;
+        delete temp;
+    }
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Node* BST<Key, Value>::NodeStack::top() const {
+    return topNode->data;
+}
+
+template<typename Key, typename Value>
+void BST<Key, Value>::NodeStack::clear() {
+    while (!empty()) {
+        pop();
+    }
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>::IteratorValue::IteratorValue(const Key& k, Value& v)
+    : key(k), value(v) {
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>::Iterator::Iterator()
+    : current(nullptr) {
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>::Iterator::Iterator(Node* root)
+    : current(nullptr) {
+    pushLeftBranch(root);
+    advance();
+}
+
+template<typename Key, typename Value>
+void BST<Key, Value>::Iterator::pushLeftBranch(Node* node) {
+    while (node != nullptr) {
+        path.push(node);
+        node = node->leftchild;
+    }
+}
+
+template<typename Key, typename Value>
+void BST<Key, Value>::Iterator::advance() {
+    if (path.empty()) {
+        current = nullptr;
+        return;
+    }
+
+    current = path.top();
+    path.pop();
+
+    if (current->rightchild != nullptr) {
+        pushLeftBranch(current->rightchild);
+    }
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator::reference BST<Key, Value>::Iterator::operator*() const {
+    return IteratorValue(current->key, current->value);
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator& BST<Key, Value>::Iterator::operator++() {
+    advance();
+    return *this;
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator BST<Key, Value>::Iterator::operator++(int) {
+    Iterator temp = *this;
+    ++(*this);
+    return temp;
+}
+
+template<typename Key, typename Value>
+bool BST<Key, Value>::Iterator::operator==(const Iterator& other) const {
+    return current == other.current;
+}
+
+template<typename Key, typename Value>
+bool BST<Key, Value>::Iterator::operator!=(const Iterator& other) const {
+    return !(*this == other);
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator BST<Key, Value>::begin() {
+    return Iterator(root);
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator BST<Key, Value>::end() {
+    return Iterator();
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator BST<Key, Value>::begin() const {
+    return Iterator(root);
+}
+
+template<typename Key, typename Value>
+typename BST<Key, Value>::Iterator BST<Key, Value>::end() const {
+    return Iterator();
+}
+
+template<typename Key, typename Value>
+std::ostream& operator<<(std::ostream& os, const BST<Key, Value>& tree) {
+    bool first = true;
+
+    for (auto item : tree) {
+        if (!first) {
+            os << ' ';
+        }
+
+        os << item.key << ':' << item.value;
+        first = false;
+    }
+
+    return os;
+}

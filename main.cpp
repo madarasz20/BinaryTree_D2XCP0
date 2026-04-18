@@ -52,6 +52,25 @@ int main() {
     {
         std::cout << "\tKey not found exception caught\n";
     }
+
+    std::cout << "Inorder traversal:\n";
+
+    for (auto item : tree) {
+        std::cout << "\t" << item.key << " -> " << item.value << "\n";
+    }
+
+    BST<int, int> tree2;
+
+    tree2.insert(10, 100);
+    tree2.insert(5, 50);
+    tree2.insert(15, 150);
+    tree2.insert(3, 30);
+    tree2.insert(7, 70);
+
+    std::cout << "Tree: " << tree2 << "\n";
+
+    const BST<int, int>& constTree = tree2;
+    std::cout << "Const tree: " << constTree << "\n";
     
     return 0;
 }

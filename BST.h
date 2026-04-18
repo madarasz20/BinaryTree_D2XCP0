@@ -3,6 +3,13 @@
 
 #include <cstddef>
 #include <iterator>
+#include <ostream>
+
+template<typename Key, typename Value>
+class BST;
+
+template<typename Key, typename Value>
+std::ostream& operator<<(std::ostream& os, const BST<Key, Value>& tree);
 
 template<typename Key, typename Value>
 class BST {
@@ -32,8 +39,8 @@ private:
 		NodeStack();
 		~NodeStack();
 
-		NodeStack(const NodeStack&) = delete;
-		NodeStack& operator=(const NodeStack&) = delete;
+		NodeStack(const NodeStack& other);
+		NodeStack& operator=(const NodeStack& other);
 
 		bool empty() const;
 		void push(Node* node);
@@ -54,6 +61,8 @@ private:
 
 public:
 	class KeyNotFoundException {};
+
+	friend std::ostream& operator<< <>(std::ostream& os, const BST<Key, Value>& tree);
 
 	class IteratorValue {
 	public:
@@ -81,7 +90,7 @@ public:
 		Iterator();
 		explicit Iterator(Node* root);
 
-		reference operator*();
+		reference operator*() const;
 		Iterator& operator++();
 		Iterator operator++(int);
 
@@ -102,7 +111,11 @@ public:
 	const Value& operator[](const Key& key) const;
 
 	//iterárot osztály inorder bejáráshoz
+	Iterator begin();
+	Iterator end();
 
+	Iterator begin() const;
+	Iterator end() const;
 
 };
 
