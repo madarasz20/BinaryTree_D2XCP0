@@ -14,6 +14,31 @@ private:
 		Node(const Key& k, const Value& val);
 	};
 
+	class NodeStack {
+	private:
+		struct StackNode {
+			Node* data;
+			StackNode* next;
+
+			StackNode(Node* d, StackNode* n);
+		};
+
+		StackNode* topNode;
+
+	public:
+		NodeStack();
+		~NodeStack();
+
+		NodeStack(const NodeStack&) = delete;
+		NodeStack& operator=(const NodeStack&) = delete;
+
+		bool empty() const;
+		void push(Node* node);
+		void pop();
+		Node* top() const;
+		void clear();
+	};
+
 	Node* root;
 
 	static void clear(Node* node);
