@@ -72,5 +72,20 @@ int main() {
     const BST<int, int>& constTree = tree2;
     std::cout << "Const tree: " << constTree << "\n";
     
+    std::cout << "Copy: " << tree2 << "\n";
+    std::cout << "Original: " << tree2 << "\n";
+
+    BST<int, int> copied(tree2);
+
+    std::cout << "Copied with copy ctor: " << copied << "\n";
+    std::cout << "\tCopied unchanged: " << copied << "\n";
+
+    BST<int, int> assigned;
+
+    assigned.insert(1, 1);
+    assigned = tree2;
+    std::cout << "Assigned with copy operator=: " << assigned << "\n";
+    std::cout << "\tAssigned unchanged: " << assigned << "\n";
+
     return 0;
 }

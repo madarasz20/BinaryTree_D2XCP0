@@ -59,6 +59,9 @@ private:
 
 	Node*& findSlot(const Key& key);
 
+	//copy 
+	static Node* clone(Node* node);
+
 public:
 	class KeyNotFoundException {};
 
@@ -99,6 +102,8 @@ public:
 	};
 
 	BST();
+	BST(const BST& other);
+	BST& operator=(const BST& other);
 	~BST();
 
 	bool empty() const;
