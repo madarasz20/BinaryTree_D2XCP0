@@ -55,7 +55,7 @@ private:
 	Node* findNode(Node* node, const Key& key) const;
 	//removehelper
 	Node* removeNode(Node* node, const Key& key, bool& removed);
-	Node* findMin(Node* node);
+	Node* findMin(Node* node) const;
 
 	Node*& findSlot(const Key& key);
 

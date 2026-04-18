@@ -85,32 +85,14 @@ bool BST<Key, Value>::empty() const {
 
 template<typename Key, typename Value>
 bool BST<Key, Value>::insert(const Key& key, const Value& value) {
-    if (root == nullptr) {
-        root = new Node(key, value);
-        return true;
+    Node*& slot = findSlot(key);
+
+    if (slot != nullptr) {
+        return false;
     }
 
-    Node* current = root;
-
-    while (true) {
-        if (key < current->key) {
-            if (current->leftchild == nullptr) {
-                current->leftchild = new Node(key, value);
-                return true;
-            }
-            current = current->leftchild;
-        }
-        else if (current->key < key) {
-            if (current->rightchild == nullptr) {
-                current->rightchild = new Node(key, value);
-                return true;
-            }
-            current = current->rightchild;
-        }
-        else {
-            return false;
-        }
-    }
+    slot = new Node(key, value);
+    return true;
 }
 
 template<typename Key, typename Value>
@@ -136,7 +118,7 @@ bool BST<Key, Value>::contains(const Key& key) const {
 }
 
 template<typename Key, typename Value>
-typename BST<Key, Value>::Node* BST<Key, Value>::findMin(Node* node) {
+typename BST<Key, Value>::Node* BST<Key, Value>::findMin(Node* node) const{
     while (node->leftchild != nullptr) {
         node = node->leftchild;
     }
