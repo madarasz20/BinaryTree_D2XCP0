@@ -16,6 +16,12 @@ BST<Key, Value>::BST(const BST& other)
 }
 
 template<typename Key, typename Value>
+BST<Key, Value>::BST(BST&& other) noexcept
+    : root(other.root) {
+    other.root = nullptr;
+}
+
+template<typename Key, typename Value>
 BST<Key, Value>::~BST() {
     clear();
 }
@@ -26,6 +32,17 @@ BST<Key, Value>& BST<Key, Value>::operator=(const BST& other) {
         Node* newRoot = clone(other.root);
         clear(root);
         root = newRoot;
+    }
+
+    return *this;
+}
+
+template<typename Key, typename Value>
+BST<Key, Value>& BST<Key, Value>::operator=(BST&& other) noexcept {
+    if (this != &other) {
+        clear(root);
+        root = other.root;
+        other.root = nullptr;
     }
 
     return *this;

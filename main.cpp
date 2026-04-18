@@ -72,20 +72,45 @@ int main() {
     const BST<int, int>& constTree = tree2;
     std::cout << "Const tree: " << constTree << "\n";
     
-    std::cout << "Copy: " << tree2 << "\n";
-    std::cout << "Original: " << tree2 << "\n";
+    //copy
+    std::cout << "Copy: "<< "\n";
+    std::cout << "\tOriginal: " << tree2 << "\n";
 
     BST<int, int> copied(tree2);
 
-    std::cout << "Copied with copy ctor: " << copied << "\n";
+    std::cout << "\tCopied with copy ctor: " << copied << "\n";
     std::cout << "\tCopied unchanged: " << copied << "\n";
 
     BST<int, int> assigned;
 
     assigned.insert(1, 1);
     assigned = tree2;
-    std::cout << "Assigned with copy operator=: " << assigned << "\n";
+    std::cout << "\tAssigned with copy operator=: " << assigned << "\n";
     std::cout << "\tAssigned unchanged: " << assigned << "\n";
+
+    //Move
+    std::cout << "Move" << std::endl;
+
+    BST<int, int> original;
+    original.insert(10, 100);
+    original.insert(5, 50);
+    original.insert(15, 150);
+
+    std::cout << "\tOriginal before move: " << original << "\n";
+
+    BST<int, int> moved(std::move(original));
+    std::cout << "\tMoved (movector): " << moved << "\n";
+    std::cout << "\tOriginal after move ctor: " << original << "\n";
+
+    BST<int, int> other;
+    other.insert(1, 1);
+    other.insert(2, 2);
+
+    std::cout << "\tOther before move assignment: " << other << "\n";
+
+    other = std::move(moved);
+    std::cout << "\tOther after move assignment: " << other << "\n";
+    std::cout << "\tMoved after move assignment: " << moved << "\n";
 
     return 0;
 }
