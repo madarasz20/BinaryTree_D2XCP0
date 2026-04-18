@@ -6,9 +6,9 @@ int main() {
 
     //empty, clear
     std::cout << "Empty and clear:" << "\n";
-    std::cout << "\tEmpty: " << tree.empty() << "\n";
+    std::cout << "\tEmpty: " << (tree.empty() ? "yes" : "no") << "\n";
     tree.clear(); 
-    std::cout << "\tStill empty: " << tree.empty() << "\n";
+    std::cout << "\tStill empty: " << (tree.empty() ? "yes" : "no") << "\n";
 
     //Insert
     std::cout << "Insert:" << "\n";

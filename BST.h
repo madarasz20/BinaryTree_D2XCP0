@@ -1,6 +1,9 @@
 #ifndef BST_H
 #define BST_H
 
+#include <cstddef>
+#include <iterator>
+
 template<typename Key, typename Value>
 class BST {
 private:
@@ -51,6 +54,40 @@ private:
 
 public:
 	class KeyNotFoundException {};
+
+	class IteratorValue {
+	public:
+		const Key& key;
+		Value& value;
+
+		IteratorValue(const Key& k, Value& v);
+	};
+
+	class Iterator {
+	private:
+		Node* current;
+		NodeStack path;
+
+		void pushLeftBranch(Node* node);
+		void advance();
+
+	public:
+		using iterator_category = std::forward_iterator_tag;
+		using value_type = IteratorValue;
+		using difference_type = std::ptrdiff_t;
+		using pointer = void;
+		using reference = IteratorValue;
+
+		Iterator();
+		explicit Iterator(Node* root);
+
+		reference operator*();
+		Iterator& operator++();
+		Iterator operator++(int);
+
+		bool operator==(const Iterator& other) const;
+		bool operator!=(const Iterator& other) const;
+	};
 
 	BST();
 	~BST();
