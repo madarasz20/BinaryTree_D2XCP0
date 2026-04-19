@@ -1,0 +1,47 @@
+[33mcommit efb15c48b600ae93df439be196c82733ee71971b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m)[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Wed Apr 15 17:25:42 2026 +0200
+
+    operator OKish
+
+[33mcommit 0c0ed9fca8dd23a7efb0ec8451400cbbab99fb66[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Wed Apr 15 16:49:36 2026 +0200
+
+    remove added
+
+[33mcommit c80ffc6bf6aba33dafe604f73c179be8433fedc5[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Wed Apr 15 16:30:06 2026 +0200
+
+    contains added
+
+[33mcommit c5a29494c1ddf76743fc3c0a44df2440d21e0c8c[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Wed Apr 15 16:17:20 2026 +0200
+
+    insert added
+
+[33mcommit 475bd7be58077fd24f2fe0e9d1f43dd3acdf3313[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Wed Apr 15 12:58:16 2026 +0200
+
+    ctor, empty, clear, RAII base works
+
+[33mcommit 5ab22b8672af1cb1c3fe740afb302dde96d39579[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Wed Apr 15 10:04:31 2026 +0200
+
+    BST.h, BST.tpp added, BST.h base starting structure
+
+[33mcommit c3750cc278efdaaea08a454c2829153e11c8a37f[m[33m ([m[1;32mmain[m[33m)[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Mon Apr 13 16:35:34 2026 +0200
+
+    gitignore added
+
+[33mcommit 985d471c9d4903c84fad07b3c90afdd7b786b746[m
+Author: madarasz.oli <madaraszoliver@gmail.com>
+Date:   Mon Apr 13 16:28:23 2026 +0200
+
+    initial commit
